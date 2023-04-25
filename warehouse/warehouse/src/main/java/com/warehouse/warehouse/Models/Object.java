@@ -1,5 +1,6 @@
-package main.java.com.warehouse.warehouse.Models;
+package com.warehouse.warehouse.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,8 +15,28 @@ public class Object {
     private String name;
     private String description;
     private String address;
-    private Float rent;
-    private Float area;
     private Float capacity;
-    private Float rent_for_m2;
+    private Float area;
+
+    public void updateObject(Object object) {
+        if (object.name != null)        { this.name = object.name; }
+
+        if (object.description != null) { this.description = object.description; }
+
+        if (object.address != null)     { this.address = object.address; }
+
+        if (object.capacity != null)    { this.capacity = object.capacity; }
+
+        if(object.area != null)         { this.area = object.area; }
+    }
+
+    // Connection with ORDER table
+    @ManyToOne
+    @JoinColumn(name= "order_id", nullable = false)
+    private Order order;
+
+    // Connection with TYPE table
+    @OneToOne
+    @JoinColumn(name = "type_id")
+    private Type type;
 }
