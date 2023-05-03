@@ -41,7 +41,7 @@ public class TypeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Type type, @PathVariable Integer id){
         try{
             Type _type = typeService.getTypeById(id);

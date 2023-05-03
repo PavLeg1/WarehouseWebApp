@@ -41,7 +41,7 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Order order, @PathVariable Integer id){
         try{
             Order _order = orderService.getOrderById(id);

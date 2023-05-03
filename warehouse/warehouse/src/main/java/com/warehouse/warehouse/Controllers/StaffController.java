@@ -41,7 +41,7 @@ public class StaffController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Staff staff, @PathVariable Integer id){
         try{
             Staff _staff = staffService.getStaffById(id);

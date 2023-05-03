@@ -9,10 +9,14 @@ import lombok.Data;
 public class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "category")
     private String category;
+    @Column(name = "size")
     private Float size;
+    @Column(name = "base_price")
     private Float base_price; // Цена за квадратный метр, в зависимости от категории
 
     public void updateType(Type type){

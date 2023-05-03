@@ -13,14 +13,22 @@ import java.util.Set;
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "firstName")
     private String firstName;
+    @Column(name = "lastName")
     private String lastName;
+    @Column(name = "post")
     private String post;
+    @Column(name = "salary")
     private Float salary;
+    @Column(name = "address")
     private String address;
+    @Column(name = "phone")
     private String phone;
+    @Column(name = "birthDate")
     private Date birthDate;
 
     public void updateStaff(Staff staff){

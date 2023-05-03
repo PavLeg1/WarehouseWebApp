@@ -11,12 +11,16 @@ import java.util.Set;
 @Table(name= "order")
 @Data
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-
+    @Column(name = "date_of_order")
     private Date date_of_order;
+    @Column(name = "status")
     private Boolean status;
+    @Column(name = "profit")
     private Float profit;
 
     public void updateOrder(Order order){

@@ -41,7 +41,7 @@ public class ClientController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Client client, @PathVariable Integer id){
         try{
             Client _client = clientService.getClientById(id);

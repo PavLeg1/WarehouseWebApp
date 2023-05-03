@@ -41,7 +41,7 @@ public class ObjectController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Object object, @PathVariable Integer id){
         try{
             Object _object = objectService.getObjectsById(id);
