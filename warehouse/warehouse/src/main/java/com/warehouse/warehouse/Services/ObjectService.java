@@ -18,8 +18,8 @@ public class ObjectService {
         return objectRepo.findAll();
     }
 
-    public void saveObject(Object object){
-        objectRepo.save(object);
+    public Object saveObject(Object object){
+        return objectRepo.save(object);
     }
 
     public Object getObjectsById(Integer id){

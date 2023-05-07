@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -46,6 +47,6 @@ public class Client {
     // Connection with ORDER table
     @JsonIgnore
     @OneToMany(mappedBy = "client")
-    private Set<Order> orders;
+    private List<Order> orders;
 
 }

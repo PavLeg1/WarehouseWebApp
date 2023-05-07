@@ -38,11 +38,11 @@ public class Object {
 
     // Connection with ORDER table
     @ManyToOne
-    @JoinColumn(name= "order_id", nullable = false)
+    @JoinColumn(name= "order_id")
     private Order order;
 
     // Connection with TYPE table
     @OneToOne
-    @JoinColumn(name = "type_id")
+    @JoinColumn(name = "type_id_fk", referencedColumnName = "id")
     private Type type;
 }

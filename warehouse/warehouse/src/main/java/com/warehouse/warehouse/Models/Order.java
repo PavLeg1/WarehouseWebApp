@@ -1,11 +1,8 @@
 package com.warehouse.warehouse.Models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.sql.Date;
-import java.util.Set;
 
 @Entity
 @Table(name= "order")
@@ -32,19 +29,18 @@ public class Order {
     }
 
     // Connection with OBJECT table
-    @JsonIgnore
-    @OneToMany(mappedBy = "order")
-    private Set<Object> objects;
-
+    @ManyToOne
+    @JoinColumn(name = "object_id_fk", referencedColumnName = "id")
+    private Object object;
 
     // Connection with CLIENT table
     @ManyToOne
-    @JoinColumn(name = "client_id", nullable = false)
+    @JoinColumn(name = "clients_id_fk", referencedColumnName = "id")
     private Client client;
 
 
     // Connection with STAFF table
     @ManyToOne
-    @JoinColumn(name = "staff_id", nullable = false)
+    @JoinColumn(name = "staff_id_fk", referencedColumnName = "id")
     private Staff staff;
 }

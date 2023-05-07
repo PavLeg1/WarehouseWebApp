@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -50,5 +51,5 @@ public class Staff {
     // Connection with ORDER table
     @JsonIgnore
     @OneToMany(mappedBy = "staff")
-    private Set<Order> order;
+    private List<Order> order;
 }

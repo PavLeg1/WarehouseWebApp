@@ -18,15 +18,17 @@ public class ClientService {
         return clientRepo.findAll();
     }
 
-    public void saveClient(Client client){
-        clientRepo.save(client);
+    public Client saveClient(Client client){
+        return clientRepo.save(client);
     }
 
     public Client getClientById(Integer id){
         return clientRepo.findById(id).get();
     }
 
+
     public void deleteClientById(Integer id){
-        clientRepo.deleteById(id);
+        Client client = getClientById(id);
+        clientRepo.delete(client);
     }
 }
