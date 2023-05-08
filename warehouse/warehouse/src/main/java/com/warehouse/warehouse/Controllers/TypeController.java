@@ -1,5 +1,7 @@
 package com.warehouse.warehouse.Controllers;
 
+import com.warehouse.warehouse.Exceptions.CustomNotFoundException;
+import com.warehouse.warehouse.Exceptions.TypeNotFoundException;
 import com.warehouse.warehouse.Models.Type;
 import com.warehouse.warehouse.Services.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/types")
@@ -16,13 +17,18 @@ public class TypeController {
     @Autowired
     private TypeService typeService;
 
-    @PostMapping("/")
+    /*@PostMapping("/")
     public void save(@RequestBody Type type){
         typeService.saveType(type);
+    }*/
+    @PostMapping("/")
+    public ResponseEntity<?> save(@RequestBody Type type){
+        typeService.saveType(type);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("")
-    public List<Type> getAll(){
+    public List<Type> getAllTypes(){
         return typeService.getAllTypes();
     }
 
@@ -32,13 +38,13 @@ public class TypeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Integer id){
+    public ResponseEntity<?> getTypeById(@PathVariable Integer id){
         try{
-            Type type =typeService.getTypeById(id);
-            return new ResponseEntity<Type>(type, HttpStatus.OK);
+            Type type = typeService.getTypeById(id);
+            return ResponseEntity.ok(type);
         }
-        catch(NoSuchElementException ex){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        catch(TypeNotFoundException ex){
+            throw new CustomNotFoundException(HttpStatus.NOT_FOUND, "We're sorry to say that type with ID: " + id + " doesn't exist...");
         }
     }
     @PutMapping("/{id}")
@@ -49,8 +55,8 @@ public class TypeController {
             typeService.saveType(_type);
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        catch (NoSuchElementException ex){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        catch (TypeNotFoundException ex){
+            throw new CustomNotFoundException(HttpStatus.NOT_FOUND, "We're sorry to say that type with ID: " + id + " doesn't exist...");
         }
     }
 }

@@ -20,8 +20,8 @@
 	<distributionManagement> <!-- repository -->
 		<repository>
 			<uniqueVersion>true</uniqueVersion>
-			<id>project_hotel</id>
-			<name>myHotel</name>
+			<id>project_WebApp</id>
+			<name>myWebApp</name>
 			<url>file://${user.home}/.m2/repository</url>
 		</repository>
 	</distributionManagement>

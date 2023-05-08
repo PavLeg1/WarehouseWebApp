@@ -1,7 +1,10 @@
 package com.warehouse.warehouse.Controllers;
 
+import com.warehouse.warehouse.Exceptions.CustomNotFoundException;
+import com.warehouse.warehouse.Exceptions.OrderNotFoundException;
 import com.warehouse.warehouse.Models.Order;
 import com.warehouse.warehouse.Services.OrderService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +20,9 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/")
-    public void save(@RequestBody Order order){
+    public ResponseEntity<?> save(@RequestBody Order order){
         orderService.saveOrder(order);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("")
@@ -35,10 +39,10 @@ public class OrderController {
     public ResponseEntity<?> getById(@PathVariable Integer id){
         try{
             Order order =orderService.getOrderById(id);
-            return new ResponseEntity<Order>(order, HttpStatus.OK);
+            return ResponseEntity.ok(order);
         }
-        catch(NoSuchElementException ex){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        catch(OrderNotFoundException ex){
+            throw new CustomNotFoundException(HttpStatus.NOT_FOUND, "We're sorry to say that order with ID: " + id + " doesn't exist...");
         }
     }
     @PutMapping("/{id}")
@@ -49,8 +53,8 @@ public class OrderController {
             orderService.saveOrder(_order);
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        catch (NoSuchElementException ex){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        catch (OrderNotFoundException ex){
+            throw new CustomNotFoundException(HttpStatus.NOT_FOUND, "We're sorry to say that order with ID: " + id + " doesn't exist...");
         }
     }
 }

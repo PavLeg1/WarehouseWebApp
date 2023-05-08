@@ -1,5 +1,6 @@
 package com.warehouse.warehouse.Services;
 
+import com.warehouse.warehouse.Exceptions.ObjectNotFoundException;
 import com.warehouse.warehouse.Models.Object;
 import com.warehouse.warehouse.Repos.ObjectRepo;
 import jakarta.transaction.Transactional;
@@ -23,11 +24,12 @@ public class ObjectService {
     }
 
     public Object getObjectsById(Integer id){
-        return objectRepo.findById(id).get();
+        return objectRepo.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
     }
 
     public void deleteObject(Integer id){
-        objectRepo.deleteById(id);
+        Object object = getObjectsById(id);
+        objectRepo.delete(object);
     }
 }
 

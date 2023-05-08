@@ -1,5 +1,6 @@
 package com.warehouse.warehouse.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,9 +26,12 @@ public class Type {
         if(type.size != null)        {this.size = type.size; }
 
         if(type.base_price != null)  {this.base_price = type.base_price; }
+
+        if(type.object != null)      {this.object = type.object; }
     }
 
     // Connection with OBJECT table
+    @JsonIgnore
     @OneToOne(mappedBy = "type")
     private Object object;
 }

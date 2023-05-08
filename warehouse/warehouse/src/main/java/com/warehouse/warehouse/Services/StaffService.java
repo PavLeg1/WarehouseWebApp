@@ -1,5 +1,6 @@
 package com.warehouse.warehouse.Services;
 
+import com.warehouse.warehouse.Exceptions.StaffNotFoundException;
 import com.warehouse.warehouse.Models.Staff;
 import com.warehouse.warehouse.Repos.StaffRepo;
 import jakarta.transaction.Transactional;
@@ -18,16 +19,17 @@ public class StaffService {
         return staffRepo.findAll();
     }
 
-    public void saveStaff(Staff staff){
-        staffRepo.save(staff);
+    public Staff saveStaff(Staff staff){
+        return staffRepo.save(staff);
     }
 
     public Staff getStaffById(Integer id){
-        return staffRepo.findById(id).get();
+        return staffRepo.findById(id).orElseThrow(() -> new StaffNotFoundException(id));
     }
 
     public void deleteStaff(Integer id){
-        staffRepo.deleteById(id);
+        Staff staff = getStaffById(id);
+        staffRepo.delete(staff);
     }
 }
 

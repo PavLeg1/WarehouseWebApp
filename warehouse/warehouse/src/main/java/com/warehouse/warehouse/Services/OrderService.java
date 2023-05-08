@@ -1,5 +1,6 @@
 package com.warehouse.warehouse.Services;
 
+import com.warehouse.warehouse.Exceptions.OrderNotFoundException;
 import com.warehouse.warehouse.Models.Order;
 import com.warehouse.warehouse.Repos.OrderRepo;
 import jakarta.transaction.Transactional;
@@ -18,16 +19,17 @@ public class OrderService {
         return orderRepo.findAll();
     }
 
-    public void saveOrder(Order order){
-        orderRepo.save(order);
+    public Order saveOrder(Order order){
+        return orderRepo.save(order);
     }
 
     public Order getOrderById(Integer id){
-        return orderRepo.findById(id).get();
+        return orderRepo.findById(id).orElseThrow(() -> new OrderNotFoundException(id));
     }
 
     public void deleteOrder(Integer id){
-        orderRepo.deleteById(id);
+        Order order = getOrderById(id);
+        orderRepo.delete(order);
     }
 }
 

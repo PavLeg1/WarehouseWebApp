@@ -1,13 +1,18 @@
 package com.warehouse.warehouse.Controllers;
 
+import com.warehouse.warehouse.Exceptions.ClientNotFoundException;
+import com.warehouse.warehouse.Exceptions.CustomNotFoundException;
 import com.warehouse.warehouse.Models.Client;
+import com.warehouse.warehouse.Models.Object;
 import com.warehouse.warehouse.Services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -17,8 +22,9 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping("/")
-    public void save(@RequestBody Client client){
+    public ResponseEntity<?> save(@RequestBody Client client){
     clientService.saveClient(client);
+    return ResponseEntity.ok().build();
     }
 
     @GetMapping("")
@@ -32,13 +38,14 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Integer id){
+    public ResponseEntity<Client> getClientById(@PathVariable Integer id){
         try{
             Client client =clientService.getClientById(id);
-            return new ResponseEntity<Client>(client, HttpStatus.OK);
+            return ResponseEntity.ok(client);
         }
-        catch(NoSuchElementException ex){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        catch(ClientNotFoundException ex){
+            //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CustomNotFoundException(HttpStatus.NOT_FOUND, "We're sorry to say that client with ID: " + id + " doesn't exist...");
         }
     }
     @PutMapping("/{id}")
@@ -47,10 +54,10 @@ public class ClientController {
             Client _client = clientService.getClientById(id);
             _client.updateClient(client);
             clientService.saveClient(_client);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok(client);
         }
-        catch (NoSuchElementException ex){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        catch (ClientNotFoundException ex){
+            throw new CustomNotFoundException(HttpStatus.NOT_FOUND, "We're sorry to say that client with ID: " + id + " doesn't exist...");
         }
     }
 }

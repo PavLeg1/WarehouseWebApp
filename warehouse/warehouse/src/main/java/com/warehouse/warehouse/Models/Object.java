@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name="object")
+@Table(name="objects")
 @Data
 public class Object {
     @Id
@@ -34,6 +34,10 @@ public class Object {
         if (object.capacity != null)    { this.capacity = object.capacity; }
 
         if(object.area != null)         { this.area = object.area; }
+
+        if(object.order != null)        { this.order = object.order; }
+
+        if(object.type != null)         {this.type = object.type; }
     }
 
     // Connection with ORDER table

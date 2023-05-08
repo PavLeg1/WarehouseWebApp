@@ -1,5 +1,6 @@
 package com.warehouse.warehouse.Services;
 
+import com.warehouse.warehouse.Exceptions.TypeNotFoundException;
 import com.warehouse.warehouse.Models.Type;
 import com.warehouse.warehouse.Repos.TypeRepo;
 import jakarta.transaction.Transactional;
@@ -18,15 +19,16 @@ public class TypeService {
         return typeRepo.findAll();
     }
 
-    public void saveType(Type type){
-        typeRepo.save(type);
+    public Type saveType(Type type){
+        return typeRepo.save(type);
     }
 
     public Type getTypeById(Integer id){
-        return typeRepo.findById(id).get();
+        return typeRepo.findById(id).orElseThrow(() -> new TypeNotFoundException(id));
     }
 
     public void deleteType(Integer id){
-        typeRepo.deleteById(id);
+        Type type = getTypeById(id);
+        typeRepo.delete(type);
     }
 }

@@ -1,5 +1,7 @@
 package com.warehouse.warehouse.Controllers;
 
+import com.warehouse.warehouse.Exceptions.CustomNotFoundException;
+import com.warehouse.warehouse.Exceptions.ObjectNotFoundException;
 import com.warehouse.warehouse.Models.Object;
 import com.warehouse.warehouse.Services.ObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,9 @@ public class ObjectController {
     private ObjectService objectService;
 
     @PostMapping("/")
-    public void save(@RequestBody Object object){
+    public ResponseEntity<?> save(@RequestBody Object object){
         objectService.saveObject(object);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("")
@@ -32,13 +35,13 @@ public class ObjectController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Integer id){
+    public ResponseEntity<?> getObjectById(@PathVariable Integer id){
         try{
             Object object =objectService.getObjectsById(id);
-            return new ResponseEntity<Object>(object, HttpStatus.OK);
+            return ResponseEntity.ok(object);
         }
-        catch(NoSuchElementException ex){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        catch(ObjectNotFoundException ex){
+            throw new CustomNotFoundException(HttpStatus.NOT_FOUND, "We're sorry to say that object with ID: " + id + " doesn't exist...");
         }
     }
     @PutMapping("/{id}")
@@ -49,8 +52,8 @@ public class ObjectController {
             objectService.saveObject(_object);
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        catch (NoSuchElementException ex){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        catch (ObjectNotFoundException ex){
+            throw new CustomNotFoundException(HttpStatus.NOT_FOUND, "We're sorry to say that object with ID: " + id + " doesn't exist...");
         }
     }
 }

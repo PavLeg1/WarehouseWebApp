@@ -42,6 +42,8 @@ public class Client {
     if(client.mail != null)         { this.mail = client.mail; }
 
     if(client.birthDate != null)    { this.birthDate = client.birthDate; }
+
+    if(client.orders != null)       {this.orders = client.orders; }
     }
 
     // Connection with ORDER table
