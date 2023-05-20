@@ -30,6 +30,13 @@ public class Client {
     @Column(name = "birthDate")
     private Date birthDate;
 
+    @Column(name="username")
+    private String username;
+
+    @Column(name="password")
+    private String password;
+
+
     public void updateClient(Client client){
     if(client.firstName != null)    { this.firstName = client.firstName; }
 
@@ -44,6 +51,10 @@ public class Client {
     if(client.birthDate != null)    { this.birthDate = client.birthDate; }
 
     if(client.orders != null)       {this.orders = client.orders; }
+
+    if(client.password != null)       {this.password = client.password; }
+
+    if(client.username != null)       {this.username = client.username; }
     }
 
     // Connection with ORDER table
