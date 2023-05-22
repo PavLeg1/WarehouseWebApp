@@ -6,10 +6,9 @@ import lombok.Data;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name= "staffs")
+@Table(name= "staff")
 @Data
 public class Staff {
     @Id
@@ -23,8 +22,7 @@ public class Staff {
     private String lastName;
     @Column(name = "post")
     private String post;
-    @Column(name = "salary")
-    private Float salary;
+
     @Column(name = "address")
     private String address;
     @Column(name = "phone")
@@ -38,8 +36,6 @@ public class Staff {
         if (staff.lastName != null)         { this.lastName = staff.lastName; }
 
         if (staff.post != null)             { this.post = staff.post; }
-
-        if (staff.salary != null)           { this.salary = staff.salary; }
 
         if (staff.address != null)          { this.address = staff.address; }
 

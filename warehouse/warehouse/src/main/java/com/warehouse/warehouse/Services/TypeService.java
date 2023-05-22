@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public class TypeService {
     @Autowired
-    private TypeRepo typeRepo;
+    TypeRepo typeRepo;
 
     public List<Type> getAllTypes() {
         return typeRepo.findAll();

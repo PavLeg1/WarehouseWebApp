@@ -15,23 +15,20 @@ public class Type {
 
     @Column(name = "category")
     private String category;
-    @Column(name = "size")
-    private Float size;
+
     @Column(name = "base_price")
     private Float base_price; // Цена за квадратный метр, в зависимости от категории
 
     public void updateType(Type type){
         if(type.category != null) { this.category = type.category; }
 
-        if(type.size != null)        {this.size = type.size; }
-
         if(type.base_price != null)  {this.base_price = type.base_price; }
 
-        if(type.object != null)      {this.object = type.object; }
+        if(type.objects != null)      {this.objects = type.objects; }
     }
 
     // Connection with OBJECT table
     @JsonIgnore
     @OneToOne(mappedBy = "type")
-    private Object object;
+    private Object objects;
 }

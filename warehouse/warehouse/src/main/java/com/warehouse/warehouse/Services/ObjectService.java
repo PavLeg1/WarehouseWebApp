@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public class ObjectService {
     @Autowired
-    private ObjectRepo objectRepo;
+    ObjectRepo objectRepo;
 
     public List<Object> getAllObjects() {
         return objectRepo.findAll();

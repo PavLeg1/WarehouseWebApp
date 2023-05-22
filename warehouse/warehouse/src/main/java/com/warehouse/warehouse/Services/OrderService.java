@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public class OrderService {
     @Autowired
-    private OrderRepo orderRepo;
+    OrderRepo orderRepo;
 
     public List<Order> getAllOrders() {
         return orderRepo.findAll();

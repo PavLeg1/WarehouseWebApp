@@ -3,19 +3,17 @@ package com.warehouse.warehouse.Models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.sql.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="clients")
 @Data
-public class Client {
+public class Client { //implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "firstName")
     private String firstName;
@@ -30,36 +28,111 @@ public class Client {
     @Column(name = "birthDate")
     private Date birthDate;
 
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
+//    @Column(name = "roles")
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @Enumerated(EnumType.STRING)
+//    private List<Roles> roles;
 
-    public void updateClient(Client client){
-    if(client.firstName != null)    { this.firstName = client.firstName; }
+//    /**
+//     * @UserDetails Methods implementation
+//     */
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return null;
+//    }
 
-    if(client.lastName != null)     { this.lastName = client.lastName; }
+//    public String getPassword() {
+//        return password;
+//    }
 
-    if(client.address != null)      { this.address = client.address; }
+//    public String getUsername() {
+//        return username;
+//    }
 
-    if(client.phone != null)        { this.phone = client.phone; }
+//    /**
+//     * @return
+//     */
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return false;
+//    }
+//
+//    /**
+//     * @return
+//     */
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return false;
+//    }
+//
+//    /**
+//     * @return
+//     */
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return false;
+//    }
+//
+//    /**
+//     * @return
+//     */
+//    @Override
+//    public boolean isEnabled() {
+//        return false;
+//    }
 
-    if(client.mail != null)         { this.mail = client.mail; }
 
-    if(client.birthDate != null)    { this.birthDate = client.birthDate; }
+    public void updateClient(Client client) {
+        if (client.firstName != null) {
+            this.firstName = client.firstName;
+        }
 
-    if(client.orders != null)       {this.orders = client.orders; }
+        if (client.lastName != null) {
+            this.lastName = client.lastName;
+        }
 
-    if(client.password != null)       {this.password = client.password; }
+        if (client.address != null) {
+            this.address = client.address;
+        }
 
-    if(client.username != null)       {this.username = client.username; }
+        if (client.phone != null) {
+            this.phone = client.phone;
+        }
+
+        if (client.mail != null) {
+            this.mail = client.mail;
+        }
+
+        if (client.birthDate != null) {
+            this.birthDate = client.birthDate;
+        }
+
+        if (client.orders != null) {
+            this.orders = client.orders;
+        }
+
+        if (client.password != null) {
+            this.password = client.password;
+        }
+
+        if (client.username != null) {
+            this.username = client.username;
+        }
+
+//        if (client.roles != null) {
+//            this.roles = client.roles;
+//        }
+
     }
 
     // Connection with ORDER table
     @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders;
-
 }

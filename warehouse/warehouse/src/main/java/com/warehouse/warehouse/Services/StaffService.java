@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public class StaffService {
     @Autowired
-    private StaffRepo staffRepo;
+    StaffRepo staffRepo;
 
     public List<Staff> getAllStaff() {
         return staffRepo.findAll();

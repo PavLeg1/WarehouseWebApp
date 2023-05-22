@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/types")
 public class TypeController {
     @Autowired
-    private TypeService typeService;
+    TypeService typeService;
 
     /*@PostMapping("/")
     public void save(@RequestBody Type type){
@@ -31,6 +31,8 @@ public class TypeController {
     public List<Type> getAllTypes(){
         return typeService.getAllTypes();
     }
+
+
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id){
