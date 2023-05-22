@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Client Table</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+  <h1>List of Clients</h1>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+      <th scope="col">id</th>
+      <th scope="col">firstName</th>
+      <th scope="col">lastName</th>
+      <th scope="col">Address</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Mail</th>
+      <th scope="col">Birth Date</th>
+      <th scope="col">Username</th>
+      <th scope="col">Password</th>
+      </tr>
+    </thead>
+    <tbody id="clientTableBody"></tbody>
+  </table>
+
+  <script>
+    // Fetch data from the server
+    fetch('http://localhost:9090/clients')
+      .then(response => response.json())
+      .then(data => {
+        const clientTableBody = document.getElementById('clientTableBody');
+        
+        // Iterate over the data and create table rows
+        data.forEach((client, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <th scope="row">${index + 1}</th>
+        <td>${client.id}</td>
+        <td>${client.firstName}</td>
+        <td>${client.lastName}</td>
+        <td>${client.address}</td>
+        <td>${client.phone}</td>
+        <td>${client.mail}</td>
+        <td>${client.birthDate}</td>
+        <td>${client.username}</td>
+        <td>${client.password}</td>
+          `;
+          clientTableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
+</body>
+</html>
